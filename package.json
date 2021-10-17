@@ -1,0 +1,9 @@
+{
+  "name": "y",
+  "version": "y",
+  "description": "A simple Node graphql server written in TypeScript",
+  "main": "index.js",
+  "author": "Jim Schuster <jim@schusie.net>",
+  "license": "MIT",
+  "private": true
+}
