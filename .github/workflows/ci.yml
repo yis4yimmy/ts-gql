@@ -1,0 +1,22 @@
+name: TS GQL CI
+
+on: push
+
+jobs:
+  container-job:
+    runs-on: ubuntu-latest
+
+    container: node:14-alpine
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Installing dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Checking files
+        run: yarn lint
+
+      - name: Running tests
+        run: yarn test
