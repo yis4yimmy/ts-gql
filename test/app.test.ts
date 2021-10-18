@@ -1,9 +1,14 @@
+import { Application } from "express";
 import request from "supertest";
 
 import { initApp } from "../src/app";
 
 describe("routes", () => {
-  const app = initApp();
+  let app: Application | undefined;
+
+  beforeAll(async () => {
+    app = await initApp();
+  });
 
   describe("GET /", () => {
     it("returns the correct message", (done) => {

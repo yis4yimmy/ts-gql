@@ -1,8 +1,9 @@
+import "reflect-metadata";
 import express from "express";
 import { graphqlHTTP } from "express-graphql";
 import { buildSchema } from "graphql";
 
-export const initApp = () => {
+export const initApp = async () => {
   const app = express();
 
   app.get("/", (_req, res) => res.send("Try /hello"));
