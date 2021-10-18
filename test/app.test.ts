@@ -28,4 +28,30 @@ describe("routes", () => {
         });
     });
   });
+
+  describe("GET /graphql", () => {
+    it("returns hello", (done) => {
+      request(app)
+        .get("/graphql")
+        .query({ query: "query{hello}" })
+        .expect(200)
+        .then((res) => {
+          expect(res.body).toMatchObject({ data: { hello: "It's me" } });
+          done();
+        });
+    });
+  });
+
+  describe("POST /graphql", () => {
+    it("returns hello", (done) => {
+      request(app)
+        .post("/graphql")
+        .send({ query: "query { hello }" })
+        .expect(200)
+        .then((res) => {
+          expect(res.body).toMatchObject({ data: { hello: "It's me" } });
+          done();
+        });
+    });
+  });
 });
