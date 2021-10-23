@@ -1,5 +1,6 @@
 import { createConnection, getConnection } from "typeorm";
 import { createDatabase } from "pg-god";
+import { DatabaseError } from "pg";
 
 const createDbAndConnect = async () => {
   try {
@@ -8,8 +9,8 @@ const createDbAndConnect = async () => {
     const pgConnection = await createConnection("test");
 
     return pgConnection;
-  } catch (error: any) {
-    if (error.code === "3D000") {
+  } catch (error) {
+    if (error instanceof DatabaseError && error.code === "3D000") {
       console.log("--- Attempting to create a database ---");
 
       await createDatabase(
