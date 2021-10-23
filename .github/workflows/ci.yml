@@ -34,3 +34,4 @@ jobs:
         env:
           PG_TEST_HOST: postgres
           PG_TEST_PASSWORD: postgres
+          DB_URL_TEST: postgresql://postgres:postgres@postgres:5432/tsgqltest
