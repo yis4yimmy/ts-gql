@@ -1,7 +1,7 @@
 import { Application } from "express";
 import request from "supertest";
 
-import { initApp } from "../src/app";
+import { initApp } from "../../../src/app";
 
 describe("routes", () => {
   let app: Application | undefined;
@@ -10,13 +10,16 @@ describe("routes", () => {
     app = await initApp();
   });
 
-  describe("GET /", () => {
+  describe("#hello", () => {
     it("returns the correct message", async () => {
-      const response = await request(app).get("/");
+      const response = await request(app)
+        .post("/graphql")
+        .set("Content-Type", "application/json")
+        .send({ query: "query { hello }" });
 
       expect(response.status).toEqual(200);
 
-      expect(response.text).toEqual("Try /graphql");
+      expect(response.body).toEqual({ data: { hello: "It's me" } });
     });
   });
 });

@@ -1,26 +1,19 @@
 import "reflect-metadata";
 import express from "express";
 import { graphqlHTTP } from "express-graphql";
-import { buildSchema } from "graphql";
+import { buildSchema } from "type-graphql";
+
+import { Public } from "./resolvers/public/hello";
+import { Register } from "./resolvers/auth/register";
 
 export const initApp = async () => {
   const app = express();
 
-  app.get("/", (_req, res) => res.send("Try /hello"));
+  app.get("/", (_req, res) => res.send("Try /graphql"));
 
-  app.get("/hello", (_req, res) => res.send("It's me"));
+  const schema = await buildSchema({ resolvers: [Public, Register] });
 
-  const schema = buildSchema(`
-    type Query {
-      hello: String
-    }
-  `);
-
-  const rootValue = {
-    hello: () => "It's me",
-  };
-
-  app.use("/graphql", graphqlHTTP({ schema, rootValue, graphiql: true }));
+  app.use("/graphql", graphqlHTTP({ schema, graphiql: true }));
 
   return app;
 };
